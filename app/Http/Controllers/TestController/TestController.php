@@ -4,6 +4,7 @@ namespace App\Http\Controllers\TestController;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Product;
 
 class TestController extends Controller
 {
@@ -15,7 +16,10 @@ class TestController extends Controller
     public function index()
     {
         //
-        return "Hola no se que pasar el lunes jodes,";
+        $products = Product::all();
+
+        return view('welcome')->with(compact('products'));
+        
     }
 
     /**
