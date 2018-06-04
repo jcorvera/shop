@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\TestController;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Product;
+use App\CartDetail;
 
-class TestController extends Controller
+class CartDetailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +15,6 @@ class TestController extends Controller
     public function index()
     {
         //
-        $products = Product::paginate(9);
-
-        return view('welcome')->with(compact('products'));
-        
     }
 
     /**
@@ -41,6 +36,16 @@ class TestController extends Controller
     public function store(Request $request)
     {
         //
+        $CartDetail = new CartDetail();
+        $CartDetail->cart_id = Auth()->User()->cart->id;
+        $CartDetail->product_id = $request->product_id;
+        $CartDetail->quantity= $request->quantity;
+        $CartDetail->save();
+
+        return back();
+
+
+
     }
 
     /**

@@ -20,7 +20,7 @@
                     </div>
                 @endif
                 <ul class="nav nav-pills nav-pills-primary" role="tablist">
-                    <li>
+                    <li class="active">
                         <a href="#dashboard" role="tab" data-toggle="tab">
                             <i class="material-icons">dashboard</i>
                             Carrito de compras
@@ -33,6 +33,11 @@
                         </a>
                     </li>
                 </ul>
+                @foreach(Auth()->User()->cart->details  as $details)
+                    <ul>
+                        <li>{{ $details }}</li>
+                    </ul>
+                @endforeach
             </div>
         </div>
 

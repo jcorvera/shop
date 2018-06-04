@@ -19,6 +19,8 @@
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/material-kit.css') }}" rel="stylesheet"/>
 
+    @yield('styles')
+
 </head>
 <body class="@yield('bodyClass')">
     <nav class="navbar navbar-transparent navbar-absolute">
@@ -48,6 +50,9 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ URL('/home') }}">Dashboard</a>
+                                    </li>
                                     @if(auth()->user()->admin)
                                         <li>
                                             <a href="{{ url('/products') }}">Gestionar Productos</a>
