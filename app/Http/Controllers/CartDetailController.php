@@ -41,8 +41,10 @@ class CartDetailController extends Controller
         $CartDetail->product_id = $request->product_id;
         $CartDetail->quantity= $request->quantity;
         $CartDetail->save();
+        
+         $notification ="Producto cargado al  carrito de compras, correctamente !!";
 
-        return back();
+        return back()->with(compact('notification'));
 
 
 
@@ -88,8 +90,15 @@ class CartDetailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $Request)
     {
-        //
+        $CartDetail = CartDetail::find($Request->cart_detail_id);
+        if ($CartDetail->cart_id == Auth()->User()->cart->id)
+            $CartDetail->delete();
+
+
+        $notification ="Producto eliminado del carrito de compras, correctamente !!";
+
+        return back()->with(compact('notification'));
     }
 }

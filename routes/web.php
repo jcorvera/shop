@@ -13,7 +13,9 @@
 Route::get('/','TestController\TestController@index');
 Auth::routes();
 Route::get('/products/{id}','ProductController@show');
-Route::post('/cart/','CartDetailController@store');
+Route::post('/cart','CartDetailController@store');
+Route::delete('/cart','CartDetailController@destroy');
+Route::post('/order','CartController@update');
 
 Route::middleware(['auth','admin'])->prefix('admin')->namespace('Admin')->group(function(){
 
