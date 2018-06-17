@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\TestController;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Category;
 
-class TestController extends Controller
+class CategoryController extends Controller
 {
-    /**
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -16,10 +16,8 @@ class TestController extends Controller
     public function index()
     {
         //
-        $categories = Category::has('products')->get();
-
-        return view('welcome')->with(compact('categories'));
-        
+        $categories = Category::paginate(15);
+        return view('admin.categories.index',compact('categories'));
     }
 
     /**
@@ -30,6 +28,8 @@ class TestController extends Controller
     public function create()
     {
         //
+        return view('admin.categories.create');
+
     }
 
     /**
@@ -40,18 +40,10 @@ class TestController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $this->validate($request,Category::$rules);
+        Category::create($request->all());
+        return redirect('/admin/categories');
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -60,9 +52,10 @@ class TestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
         //
+        return view('admin.categories.edit')->with(compact('category'));
     }
 
     /**
@@ -72,9 +65,12 @@ class TestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+
+        $this->validate($request,Category::$rules);
+        $category->update($request->all());
+        return redirect('/admin/categories');
     }
 
     /**
@@ -83,8 +79,9 @@ class TestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $Category)
     {
-        //
+        $Category->delete();
+        return back();
     }
 }

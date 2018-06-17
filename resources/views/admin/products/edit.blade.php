@@ -13,7 +13,7 @@
     <div class="container">
 
         <div class="section">
-            <h2 class="title">Nuevo Producto</h2>
+            <h2 class="title">Editar productos seleccionada</h2>
 
             @if ($errors->any())
                 <div class="alert alert-danger">
@@ -30,7 +30,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group label-floating">
-                            <label class="control-label">Nombre Producto</label>
+                            <label class="control-label">Nombre del producto</label>
                             <input type="text" name="name" class="form-control" value="{{ old('name',$product->name)}}">
                         </div>
                     </div>
@@ -43,10 +43,28 @@
                     </div>
                 </div>
 
-                <div class="form-group label-floating">
-                    <label class="control-label">Descripción corta </label>
-                    <input type="text" name="description" value="{{ old('description', $product->description) }}" class="form-control">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group label-floating">
+                            <label class="control-label">Descripción corta </label>
+                            <input type="text" name="description" value="{{ old('description', $product->description) }}" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group label-floating">
+                            <label class="control-label">Categoría del producto </label>
+                            <select class="form-control" name="category_id">
+                                <option value="0">General</option>
+                                @foreach($categories as $key=>$value)
+                                    <option value="{{ $value->id }}"  @if($value->id == old('category_id',$product->category_id)) selected @endif>{{ $value->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                 </div>
+
+                
 
                 <textarea class="form-control" placeholder="Aquí ingresará la descripcion larga del producto" name="long_description" rows="5">{{ old('long_description',$product->long_description) }}</textarea>
 
