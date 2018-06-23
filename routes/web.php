@@ -10,10 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/search','SearchController@show');
+Route::get('/products/json','SearchController@data');
 Route::get('/','TestController\TestController@index');
 Auth::routes();
 Route::get('/products/{id}','ProductController@show');
 Route::get('/categories/{category}','CategoryController@show');
+
 
 Route::post('/cart','CartDetailController@store');
 Route::delete('/cart','CartDetailController@destroy');
