@@ -2,6 +2,7 @@
 
 * Products
 * Categories
+* Car_shop:
 * Users
 * Avatares.
 * Email Notifications
